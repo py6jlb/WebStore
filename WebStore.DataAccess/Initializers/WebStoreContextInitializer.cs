@@ -36,7 +36,7 @@ namespace WebStore.DataAccess.Initializers
             context.Categories.AddRange(new List<Category>
             {
                 new Category {HeadCategoryId = 7, Name = "Газировка" }, //8
-                new Category {HeadCategoryId = 7, Name = "Натуральные сок" }, //9
+                new Category {HeadCategoryId = 7, Name = "Натуральные соки" }, //9
                 new Category {HeadCategoryId = 7, Name = "Вода" }, //10
                 new Category {HeadCategoryId = 4, Name = "Свежая рыба(охлажденная)" }, //11
                 new Category {HeadCategoryId = 4, Name = "Замороженная рыба" },//12

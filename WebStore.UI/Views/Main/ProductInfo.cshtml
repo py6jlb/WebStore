@@ -1,0 +1,29 @@
+﻿@model WebStore.BusinessLogic.DTO.Product.ProductDTO
+@{
+    ViewBag.Title = "ProductInfo";
+}
+
+<h2>Информация о продукте</h2>
+<h3></h3>
+<table class="table table-hover table-striped table-bordered">
+    <tbody>
+        <tr>
+            <td>Категория</td>
+            <td>@Model.CategoryName</td>
+        </tr>
+        <tr>
+            <td>Название</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Описание</td>
+            <td>@Model.Description</td>
+        </tr>
+        <tr>
+            <td>Цена</td>
+            <td>@Model.Price</td>
+        </tr>
+    </tbody>
+</table>
+
+<a href=@Url.Action("EditProduct", "Main", new { @id = @Model.Id}, null) class="btn btn-primary btn-lg">Изменить &raquo;</a>

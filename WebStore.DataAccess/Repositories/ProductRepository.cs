@@ -30,5 +30,15 @@ namespace WebStore.DataAccess.Repositories
         {
             return _context.Products.Include(x => x.Category).Where(func).ToArray();
         }
+
+        public void DelProducts(Product prod)
+        {
+            _context.Products.Remove(prod);
+        }
+
+        public IEnumerable<Category> GetCategoryes()
+        {
+            return _context.Categories.ToArray();
+        }
     }
 }

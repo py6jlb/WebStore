@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<WebStore.BusinessLogic.DTO.Product.ProductDTO>
+@model IEnumerable<WebStore.BusinessLogic.DTO.Product.ProductForIndexView>
 @{
     ViewBag.Title = "Index";
 }
@@ -12,17 +12,19 @@
         <tr>
             <th>Имя</th>
             <th>Категория</th>
-            <th>Описание</th>
             <th>Цена</th>
+            <th>&nbsp;</th>
         </tr>
         @foreach (var e in @Model)
         {
             <tr>
                 <td>@e.Name</td>
                 <td>@e.CategoryName</td>
-                <td>@e.Description</td>
                 <td>@e.Price</td>
+                <td>@Html.ActionLink("More", "ProductInfo", "Main", new { id = @e.Id }, null)</td>
             </tr>
         }
     </tbody>
 </table>
+
+<a href=@Url.Action("AddProduct", "Main") class="btn btn-primary btn-lg">Добавить &raquo;</a>

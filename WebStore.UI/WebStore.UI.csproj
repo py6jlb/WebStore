@@ -160,6 +160,7 @@
     <Compile Include="Infrastructure\DependencyConfig.cs" />
     <Compile Include="Infrastructure\IoC\WebDependencyModule.cs" />
     <Compile Include="Infrastructure\Mapping\WebMappingConfig.cs" />
+    <Compile Include="Models\AddProductModelView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +176,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Main\ProductInfo.cshtml" />
+    <Content Include="Views\Main\EditProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -184,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WebStore.BusinessLogic\WebStore.BusinessLogic.csproj">
