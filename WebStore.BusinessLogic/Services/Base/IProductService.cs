@@ -11,8 +11,10 @@ namespace WebStore.BusinessLogic.Services.Base
     public interface IProductService
     {
         IEnumerable<ProductForIndexView> GetProducts();
-        bool DelProduct(int id);
+        void DelProduct(int id);
         ProductDTO GetProduct(int id);
         IEnumerable<CategoryForDropDownList> GetCategories();
+        void UpdateProduct(ProductDTO editedProduct);
+        void AddProduct(ProductDTO product);
     }
 }

@@ -1,11 +1,11 @@
 ﻿@model  WebStore.UI.Models.AddProductModelView
 @{
-    ViewBag.Title = "EditProduct";
+    ViewBag.Title = "AddProduct";
 }
 
-<h2>Редактирование товара</h2>
+<h2>Новый товар</h2>
 
-@using (Html.BeginForm("EditProduct", "Main", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("AddProduct", "Main", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
@@ -33,7 +33,7 @@
     <div class="form-group">
         <label for="Description" class="col-xs-2 control-label">Описание:</label>
         <div class="col-xs-10">
-            @Html.EditorFor(m => m.Product.Description , new { id = "Salary" }) @Html.ValidationMessageFor(m => m.Product.Description)
+            @Html.EditorFor(m => m.Product.Description, new { id = "Salary" }) @Html.ValidationMessageFor(m => m.Product.Description)
         </div>
     </div>
     <div class="form-group">
@@ -43,4 +43,3 @@
         </div>
     </div>
 }
-

@@ -34,11 +34,32 @@ namespace WebStore.DataAccess.Repositories
         public void DelProducts(Product prod)
         {
             _context.Products.Remove(prod);
+            _context.SaveChanges();
         }
 
         public IEnumerable<Category> GetCategoryes()
         {
             return _context.Categories.ToArray();
+        }
+
+        public void UpdateProduct(Product tmp)
+        {
+            var prod = _context.Products.FirstOrDefault(x => x.Id == tmp.Id);
+            if(prod != null)
+            {
+                prod.Name = tmp.Name;
+                prod.CategoryId = tmp.CategoryId;
+                prod.Description = tmp.Description;
+                prod.Price = tmp.Price;
+            }
+
+            _context.SaveChanges();
+        }
+
+        public void AddProduct(Product tmp)
+        {
+            _context.Products.Add(tmp);
+            _context.SaveChanges();
         }
     }
 }

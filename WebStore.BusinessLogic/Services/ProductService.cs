@@ -8,6 +8,7 @@ using WebStore.BusinessLogic.DTO.Product;
 using WebStore.BusinessLogic.Services.Base;
 using WebStore.DataAccess.Repositories.Base;
 using WebStore.BusinessLogic.DTO.Category;
+using WebStore.Domain.Entities;
 
 namespace WebStore.BusinessLogic.Services
 {
@@ -28,17 +29,10 @@ namespace WebStore.BusinessLogic.Services
             return _productRepository.GetProducts().Select(_mapper.Map<ProductForIndexView>).ToArray();
         }
 
-        public bool DelProduct(int id)
+        public void DelProduct(int id)
         {
-           var prod = _productRepository.GetProducts(x => x.Id == id).FirstOrDefault();
-
-            if(prod != null)
-            {
-                _productRepository.DelProducts(prod);
-                return true;
-            }
-
-            return false;
+            var prod = _productRepository.GetProducts(x => x.Id == id).FirstOrDefault();
+            _productRepository.DelProducts(prod);
         }
 
         public ProductDTO GetProduct(int id)
@@ -49,6 +43,21 @@ namespace WebStore.BusinessLogic.Services
         public IEnumerable<CategoryForDropDownList> GetCategories()
         {
             return _productRepository.GetCategoryes().Select(_mapper.Map<CategoryForDropDownList>).ToArray();
+        }
+
+        public void UpdateProduct(ProductDTO editedProduct)
+        {
+            Product tmp = _mapper.Map<ProductDTO, Product>(editedProduct);
+            tmp.CategoryId = _productRepository.GetCategoryes().FirstOrDefault(x => x.Name == editedProduct.CategoryName).Id;
+            _productRepository.UpdateProduct(tmp);
+
+        }
+
+        public void AddProduct(ProductDTO product)
+        {
+            Product tmp = _mapper.Map<ProductDTO, Product>(product);
+            tmp.CategoryId = _productRepository.GetCategoryes().FirstOrDefault(x => x.Name == product.CategoryName).Id;
+            _productRepository.AddProduct(tmp);
         }
     }
 }
