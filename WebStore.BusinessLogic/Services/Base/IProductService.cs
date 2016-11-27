@@ -16,5 +16,6 @@ namespace WebStore.BusinessLogic.Services.Base
         ProductDTO GetProduct(int id);
         void UpdateProduct(ProductDTO editedProduct);
         IEnumerable<SelectListItem> GetCategories();
+        IEnumerable<ProductForIndexView> GetProducts(int catId);
     }
 }

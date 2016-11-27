@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebStore.BusinessLogic.DTO.Category;
 using WebStore.BusinessLogic.DTO.Product;
 using WebStore.BusinessLogic.Services.Base;
 
@@ -23,10 +24,23 @@ namespace WebStore.UI.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var products = _productService.GetProducts();
+            ViewBag.Categories = _productService.GetCategories();
+            //var products = _productService.GetProducts();
 
-            return View(products);
+            return View();
         }
+
+        [HttpPost]
+        public ActionResult UpdateList(CategoryForDropDownList category)
+        {
+            if (category.Id <= 0)
+                return Json(new { result = "Redirect", url = Url.Action("Index", "Main") });
+
+            var model = _productService.GetProducts(category.Id);
+
+            return PartialView("ProductList", model);
+        }
+
         #endregion
 
         #region ProductInfo
