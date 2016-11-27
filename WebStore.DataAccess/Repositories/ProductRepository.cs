@@ -21,20 +21,24 @@ namespace WebStore.DataAccess.Repositories
             _context = context;
         }
 
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
         public IEnumerable<Product> GetProducts()
         {
             return _context.Products.Include(x => x.Category).ToArray();
         }
 
+        public Product GetProduct(int id)
+        {
+            return _context.Products.Include(x => x.Category).FirstOrDefault(x => x.Id == id);
+        }
+
         public IEnumerable<Product> GetProducts(Expression<Func<Product, bool>> func)
         {
             return _context.Products.Include(x => x.Category).Where(func).ToArray();
-        }
-
-        public void DelProducts(Product prod)
-        {
-            _context.Products.Remove(prod);
-            _context.SaveChanges();
         }
 
         public IEnumerable<Category> GetCategoryes()
@@ -59,6 +63,12 @@ namespace WebStore.DataAccess.Repositories
         public void AddProduct(Product tmp)
         {
             _context.Products.Add(tmp);
+            _context.SaveChanges();
+        }
+
+        public void RemoveProduct(Product product)
+        {
+            _context.Products.Remove(product);
             _context.SaveChanges();
         }
     }

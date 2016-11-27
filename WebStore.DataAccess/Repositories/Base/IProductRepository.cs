@@ -12,9 +12,11 @@ namespace WebStore.DataAccess.Repositories.Base
     {
         IEnumerable<Product> GetProducts();
         IEnumerable<Product> GetProducts(Expression<Func<Product, bool>> func);
-        void DelProducts(Product prod);
         IEnumerable<Category> GetCategoryes();
         void UpdateProduct(Product tmp);
         void AddProduct(Product tmp);
+        Product GetProduct(int id);
+        void SaveChanges();
+        void RemoveProduct(Product product);
     }
 }

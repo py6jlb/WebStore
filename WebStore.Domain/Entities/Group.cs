@@ -10,24 +10,31 @@ using WebStore.Domain.Entities.Base;
 
 namespace WebStore.Domain.Entities
 {
-    [Table("Roles")]
-    public class Role
+    public class Group
         : BaseIdEntity
     {
         [Column(TypeName = "nvarchar")]
-        [Index("IX_Role_Name", IsUnique = true, Order = 1)]
+        [StringLength(240)]
         public string Name { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<Group> Groups { get; set; }
+        public virtual ICollection<Role> Roles { get; set; }
     }
 
-    public class RoleEntityTypeConfiguration : EntityTypeConfiguration<Role>
+    public class GroupEntityTypeConfiguration
+        : EntityTypeConfiguration<Group>
     {
-        public RoleEntityTypeConfiguration()
+        public GroupEntityTypeConfiguration()
         {
-            Property(x => x.Name).IsMaxLength();
+            HasMany(x => x.Roles)
+                .WithMany(x => x.Groups)
+                .Map(m =>
+                {
+                    m.MapLeftKey("GroupId");
+                    m.MapRightKey("RoleId");
+                    m.ToTable("GroupRoles");
+                });
         }
     }
 }

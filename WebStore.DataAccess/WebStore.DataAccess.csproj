@@ -93,7 +93,9 @@
     <Compile Include="DataAccessDependencyModule.cs" />
     <Compile Include="Initializers\WebStoreContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Base\ICategoryRepository.cs" />
     <Compile Include="Repositories\Base\IProductRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebStore.BusinessLogic.DTO.Product;
 using WebStore.BusinessLogic.Services.Base;
-using WebStore.UI.Models;
 
 namespace WebStore.UI.Controllers
 {
     public class MainController : Controller
     {
+        #region init service
         IProductService _productService = null;
 
         public MainController(IProductService productService)
         {
             _productService = productService;
         }
+        #endregion
 
+        #region Index
         [HttpGet]
         public ActionResult Index()
         {
@@ -24,7 +27,9 @@ namespace WebStore.UI.Controllers
 
             return View(products);
         }
+        #endregion
 
+        #region ProductInfo
         [HttpGet]
         public ActionResult ProductInfo(int id)
         {
@@ -32,24 +37,31 @@ namespace WebStore.UI.Controllers
 
             return View(product);
         }
+        #endregion
 
+
+        #region Product manipulation
         [HttpGet]
         public ActionResult EditProduct(int id)
         {
-            var model = new AddProductModelView()
-            {
-                Product = _productService.GetProduct(id),
-                Category = _productService.GetCategories()
-            };
+            ViewBag.IsEdit = true;
+            ViewBag.Categories = _productService.GetCategories();
 
-            return View(model);
+            var product = _productService.GetProduct(id);
+            
+            return View("ManipulateProduct", product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProduct(AddProductModelView editedProduct)
+        public ActionResult EditProduct(ProductDTO editedProduct)
         {
-            _productService.UpdateProduct(editedProduct.Product);
+            ViewBag.IsEdit = true;
+
+            if (!ModelState.IsValid)
+                return View("ManipulateProduct", editedProduct);
+
+            _productService.UpdateProduct(editedProduct);
 
             return RedirectToAction("Index");
         }
@@ -57,7 +69,7 @@ namespace WebStore.UI.Controllers
         [HttpGet]
         public ActionResult DeletProduct(int id)
         {
-            _productService.DelProduct(id);
+            _productService.RemoveProduct(id);
 
             return RedirectToAction("Index");
         }
@@ -65,23 +77,43 @@ namespace WebStore.UI.Controllers
         [HttpGet]
         public ActionResult AddProduct()
         {
-            var model = new AddProductModelView()
-            {
-                Product = new BusinessLogic.DTO.Product.ProductDTO(),
-                Category = _productService.GetCategories()
-            };
+            ViewBag.Categories = _productService.GetCategories();
 
-            return View(model);
+            return View("ManipulateProduct");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddProduct(AddProductModelView newProduct)
+        public ActionResult AddProduct(ProductDTO newProduct)
         {
-            _productService.AddProduct(newProduct.Product);
+            _productService.UpdateProduct(newProduct);
 
             return RedirectToAction("Index");
         }
+        #endregion
+
+        //Нашел этот способ в интернете, хотелось бы услышать подробнее про его реализацию
+        //public ActionResult GetCategoriesDropdown(int id)
+        //{
+        //    var model = from cat in _productService.GetCategories()
+        //                     select new SelectListItem
+        //                     {
+        //                         Text = cat.Name,
+        //                         Value = cat.Id.ToString(),
+        //                         Selected = (cat.Id == id)
+        //                     };
+        //    ViewData.ModelMetadata = new ModelMetadata(
+        //        ModelMetadataProviders.Current,
+        //        null,
+        //        null,
+        //        typeof(int),
+        //        "Id"
+        //        )
+
+        //        { NullDisplayText = "choose" };
+
+        //    return View("CategoriesDropdown", model);
+        //}
 
     }
 }

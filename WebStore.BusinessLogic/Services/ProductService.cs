@@ -9,18 +9,21 @@ using WebStore.BusinessLogic.Services.Base;
 using WebStore.DataAccess.Repositories.Base;
 using WebStore.BusinessLogic.DTO.Category;
 using WebStore.Domain.Entities;
+using System.Web.Mvc;
 
 namespace WebStore.BusinessLogic.Services
 {
     public class ProductService
         : IProductService
     {
+        ICategoryRepository _categoryRepository = null;
         IProductRepository _productRepository = null;
         IMapper _mapper;
 
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
 
@@ -29,10 +32,14 @@ namespace WebStore.BusinessLogic.Services
             return _productRepository.GetProducts().Select(_mapper.Map<ProductForIndexView>).ToArray();
         }
 
-        public void DelProduct(int id)
+        public void RemoveProduct(int id)
         {
-            var prod = _productRepository.GetProducts(x => x.Id == id).FirstOrDefault();
-            _productRepository.DelProducts(prod);
+            var prod = _productRepository.GetProduct(id);
+
+            if (prod != null)
+            {
+                _productRepository.RemoveProduct(prod);
+            }
         }
 
         public ProductDTO GetProduct(int id)
@@ -40,24 +47,31 @@ namespace WebStore.BusinessLogic.Services
             return _productRepository.GetProducts(x => x.Id == id).Select(_mapper.Map<ProductDTO>).FirstOrDefault();
         }
 
-        public IEnumerable<CategoryForDropDownList> GetCategories()
+        public IEnumerable<SelectListItem> GetCategories()
         {
-            return _productRepository.GetCategoryes().Select(_mapper.Map<CategoryForDropDownList>).ToArray();
+            return _categoryRepository.GetCategories().Select(x => new SelectListItem { Value = x.Id.ToString(), Text = x.Name }).ToArray();
         }
 
-        public void UpdateProduct(ProductDTO editedProduct)
+        public void UpdateProduct(ProductDTO viewModel)
         {
-            Product tmp = _mapper.Map<ProductDTO, Product>(editedProduct);
-            tmp.CategoryId = _productRepository.GetCategoryes().FirstOrDefault(x => x.Name == editedProduct.CategoryName).Id;
-            _productRepository.UpdateProduct(tmp);
+            var product = _mapper.Map<Product>(viewModel);
 
-        }
+            if (product.Id != 0)
+            {
+                var oldProduct = _productRepository.GetProduct(product.Id);
 
-        public void AddProduct(ProductDTO product)
-        {
-            Product tmp = _mapper.Map<ProductDTO, Product>(product);
-            tmp.CategoryId = _productRepository.GetCategoryes().FirstOrDefault(x => x.Name == product.CategoryName).Id;
-            _productRepository.AddProduct(tmp);
+                oldProduct.Name = product.Name;
+                oldProduct.Description = product.Description;
+                oldProduct.CategoryId = product.CategoryId;
+                oldProduct.IsDeleted = product.IsDeleted;
+            }
+            else if (product.Id == 0)
+            {
+                _productRepository.AddProduct(product);
+            }
+
+            _productRepository.SaveChanges();
+
         }
     }
 }
