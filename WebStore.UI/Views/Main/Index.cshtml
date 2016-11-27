@@ -7,7 +7,7 @@
 }
 
 <h2>Добро пожаловать</h2>
-
+<div id="error"></div>
 @using (Ajax.BeginForm("UpdateList", "Main", ajaxOpt, new { @class = "form-inline" }))
 {
     <div class="form-group">
@@ -15,14 +15,14 @@
         @Html.DropDownListFor(x => x.Id, list, new { @class = "form-control", id = "category" })
         @Html.ValidationMessageFor(x => x.Id)
     </div>
-
     <button type="submit" class="btn btn-primary">Применить</button>
 
     @section Scripts {
         <script type="text/javascript">
             function onAjax(response) {
                 if (response.result == 'Redirect') {
-                    window.location = response.url;
+                    //window.location = response.url;
+                    $('#error').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
                 }
             }
         </script>

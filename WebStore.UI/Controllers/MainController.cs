@@ -34,7 +34,7 @@ namespace WebStore.UI.Controllers
         public ActionResult UpdateList(CategoryForDropDownList category)
         {
             if (category.Id <= 0)
-                return Json(new { result = "Redirect", url = Url.Action("Index", "Main") });
+                return Json(new { result = "Redirect", url = Url.Action("Index")});
 
             var model = _productService.GetProducts(category.Id);
 
