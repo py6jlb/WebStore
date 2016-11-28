@@ -108,7 +108,7 @@ namespace WebStore.BusinessLogic.Services
 
             name = filter.Name != null ? filter.Name : "";
             descr = filter.Description != null ? filter.Description : "";
-            priceMin = filter.PriceMin != 0 ? filter.PriceMin : 0.0D;
+            priceMin = filter.PriceMin;
             priceMax = filter.PriceMax != 0 ? filter.PriceMin : double.MaxValue;
 
             return _productRepository.GetProductsByFilter(selectedCateoryId, name, descr, priceMin, priceMax).Select(_mapper.Map<ProductForIndexView>).ToArray();         
