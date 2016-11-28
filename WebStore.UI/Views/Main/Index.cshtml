@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Index";
     var list = ((IEnumerable<SelectListItem>)ViewBag.Categories).ToList();
-    list.Add(new SelectListItem { Selected = true, Text = "Выберите Категорию", Value = "-1" });
-    var ajaxOpt = new AjaxOptions{HttpMethod = "post", UpdateTargetId = "results", OnComplete = "onAjax"};
+    list.Add(new SelectListItem { Selected = true, Text = "", Value = "-1" });
+    var ajaxOpt = new AjaxOptions{HttpMethod = "post",  OnSuccess = "onAjax"};
+
+    //UpdateTargetId = "results",
 }
 
 <h2>Добро пожаловать</h2>
@@ -11,7 +13,6 @@
 @using (Ajax.BeginForm("UpdateList", "Main", ajaxOpt, new { @class = "form-inline" }))
 {
     <div class="form-group">
-        <label class="sr-only" for="category">Email</label>
         @Html.DropDownListFor(x => x.Id, list, new { @class = "form-control", id = "category" })
         @Html.ValidationMessageFor(x => x.Id)
     </div>
@@ -20,13 +21,17 @@
     @section Scripts {
         <script type="text/javascript">
             function onAjax(response) {
-                if (response.result == 'Redirect') {
+                if (response.reslt == 'Redirect') {
                     //window.location = response.url;
-                    $('#error').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
+                    $('#results').empty().html(response.html);
+                }
+                else {
+                    $('#results').empty().html(response)
                 }
             }
         </script>
     }
 }
 <br>
-<div id="results"></div>
+<div id="results">
+</div>
