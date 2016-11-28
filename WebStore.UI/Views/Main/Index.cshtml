@@ -4,8 +4,6 @@
     var list = ((IEnumerable<SelectListItem>)ViewBag.Categories).ToList();
     list.Add(new SelectListItem { Selected = true, Text = "", Value = "-1" });
     var ajaxOpt = new AjaxOptions{HttpMethod = "post",  OnSuccess = "onAjax"};
-
-    //UpdateTargetId = "results",
 }
 
 <h2>Добро пожаловать</h2>
@@ -21,9 +19,9 @@
     @section Scripts {
         <script type="text/javascript">
             function onAjax(response) {
-                if (response.reslt == 'Redirect') {
+                if (response == 'Redirect') {
                     //window.location = response.url;
-                    $('#results').empty().html(response.html);
+                    $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
                 }
                 else {
                     $('#results').empty().html(response)
