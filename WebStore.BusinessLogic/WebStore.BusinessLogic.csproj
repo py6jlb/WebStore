@@ -84,6 +84,7 @@
     <Compile Include="BusinessLogicDependencyModule.cs" />
     <Compile Include="DTO\Category\CategoryForDropDownList.cs" />
     <Compile Include="DTO\Product\ProductDTO.cs" />
+    <Compile Include="DTO\Product\ProductFilterDTO.cs" />
     <Compile Include="DTO\Product\ProductForIndexView.cs" />
     <Compile Include="Mapping\CategoryProfile.cs" />
     <Compile Include="Mapping\ProductProfile.cs" />

@@ -96,15 +96,22 @@ namespace WebStore.BusinessLogic.Services
 
         }
 
-        public IEnumerable<ProductForIndexView> GetProductsByCategoryRecursive(int CategoryId)
+        public IEnumerable<ProductForIndexView> GetProductsRecursiveDyFilter(ProductFilterDTO filter)
         {
             List<Category> selectedCateory = new List<Category>();
 
-            var data = _categoryRepository.GetCategories().Where(x => x.Id == CategoryId).ToArray();
+            var data = _categoryRepository.GetCategories().Where(x => x.Id == filter.CategoryId).ToArray();
             selectedCateory.AddRange(GetRecursiveCategory(data));
             var selectedCateoryId = selectedCateory.Select(m => m.Id);
+            string name, descr;
+            double priceMin, priceMax;
 
-            return _productRepository.GetProducts().Where(x => selectedCateoryId.Contains(x.CategoryId)).Select(_mapper.Map<ProductForIndexView>).ToArray();            
+            name = filter.Name != null ? filter.Name : "";
+            descr = filter.Description != null ? filter.Description : "";
+            priceMin = filter.PriceMin != 0 ? filter.PriceMin : 0.0D;
+            priceMax = filter.PriceMax != 0 ? filter.PriceMin : double.MaxValue;
+
+            return _productRepository.GetProductsByFilter(selectedCateoryId, name, descr, priceMin, priceMax).Select(_mapper.Map<ProductForIndexView>).ToArray();         
 
         }
     }

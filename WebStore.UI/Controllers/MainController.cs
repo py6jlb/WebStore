@@ -30,17 +30,12 @@ namespace WebStore.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateList(CategoryForDropDownList category)
+        public ActionResult UpdateList(ProductFilterDTO filter)
         {
-            if (category.Id <= 0)
+            if (filter.CategoryId <= 0)
                 return Json("Redirect");
 
-            //БЕЗРЕКУРСИВНЫЙ ВЫБОР ДАННЫХ
-            //var model = _productService.GetProducts(category.Id);
-
-            var model = _productService.GetProductsByCategoryRecursive(category.Id);
-
-
+            var model = _productService.GetProductsRecursiveDyFilter(filter);
 
             return PartialView("ProductList", model);
         }

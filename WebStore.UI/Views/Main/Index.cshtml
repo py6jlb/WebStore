@@ -1,4 +1,4 @@
-﻿@model WebStore.BusinessLogic.DTO.Category.CategoryForDropDownList
+﻿@model WebStore.BusinessLogic.DTO.Product.ProductFilterDTO
 @{
     ViewBag.Title = "Index";
     var list = ((IEnumerable<SelectListItem>)ViewBag.Categories).ToList();
@@ -6,30 +6,59 @@
     var ajaxOpt = new AjaxOptions{HttpMethod = "post",  OnSuccess = "onAjax"};
 }
 
-<h2>Добро пожаловать</h2>
-<div id="error"></div>
-@using (Ajax.BeginForm("UpdateList", "Main", ajaxOpt, new { @class = "form-inline" }))
-{
-    <div class="form-group">
-        @Html.DropDownListFor(x => x.Id, list, new { @class = "form-control", id = "category" })
-        @Html.ValidationMessageFor(x => x.Id)
-    </div>
-    <button type="submit" class="btn btn-primary">Применить</button>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Поиск продуктов</h2>
+        @using (Ajax.BeginForm("UpdateList", "Main", ajaxOpt, new { @class = "form-horizontal" }))
+        {
+            <div class="form-group">
+                @Html.DropDownListFor(x => x.CategoryId, list, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.CategoryId)
+            </div>
 
-    @section Scripts {
-        <script type="text/javascript">
-            function onAjax(response) {
-                if (response == 'Redirect') {
-                    //window.location = response.url;
-                    $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
-                }
-                else {
-                    $('#results').empty().html(response)
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Имя" })
+                    @Html.ValidationMessageFor(x => x.Name)
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", placeholder = "Описание" })
+                    @Html.ValidationMessageFor(x => x.Description)
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.PriceMin, new { @class = "form-control", placeholder = "Цена от" })
+                    @Html.ValidationMessageFor(x => x.PriceMin)
+                </div>
+
+                <div class="form-group">
+                    @Html.TextBoxFor(x => x.PriceMax, new { @class = "form-control", placeholder = "Цена до" })
+                    @Html.ValidationMessageFor(x => x.PriceMax)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(x => x.IsDeleted)
+                    @Html.CheckBoxFor(x => x.IsDeleted)
+                    @Html.ValidationMessageFor(x => x.IsDeleted)
+                </div>
+
+                <button type="submit" class="btn btn-primary">Применить</button>
+
+                @section Scripts {
+                    <script type="text/javascript">
+                        function onAjax(response) {
+                            if (response == 'Redirect') {
+                                //window.location = response.url;
+                                $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
+                            }
+                            else {
+                                $('#results').empty().html(response)
+                            }
+                        }
+                    </script>
                 }
             }
-        </script>
-    }
-}
-<br>
-<div id="results">
+    </div>
+    <div id="results" class="col-md-8" style="padding-top: 3%">
+    </div>
 </div>

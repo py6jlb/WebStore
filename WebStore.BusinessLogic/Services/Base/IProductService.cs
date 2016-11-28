@@ -17,6 +17,6 @@ namespace WebStore.BusinessLogic.Services.Base
         void UpdateProduct(ProductDTO editedProduct);
         IEnumerable<SelectListItem> GetCategories();
         IEnumerable<ProductForIndexView> GetProducts(int catId);
-        IEnumerable<ProductForIndexView> GetProductsByCategoryRecursive(int id);
+        IEnumerable<ProductForIndexView> GetProductsRecursiveDyFilter(ProductFilterDTO filter);
     }
 }

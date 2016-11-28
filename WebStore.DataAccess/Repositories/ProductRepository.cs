@@ -8,6 +8,7 @@ using WebStore.DataAccess.Context;
 using WebStore.DataAccess.Repositories.Base;
 using WebStore.Domain.Entities;
 using System.Data.Entity;
+using System.Text.RegularExpressions;
 
 namespace WebStore.DataAccess.Repositories
 {
@@ -71,5 +72,22 @@ namespace WebStore.DataAccess.Repositories
             _context.Products.Remove(product);
             _context.SaveChanges();
         }
+
+        public IEnumerable<Product> GetProductsByFilter(IEnumerable<int> categories, string name, string descr, double priceMax, double priceMin)
+        {
+            var m = _context.Products.Include(p => p.Category).Where(x => categories.Contains(x.CategoryId)).ToArray();
+
+            return from prod in m
+                   where prod.Name.ToLower().Contains(name.ToLower())
+                   && prod.Description.ToLower().Contains(descr.ToLower())
+                   //&& prod.Price > priceMin
+                   //&& prod.Price < priceMax
+                   select prod;
+        }
     }
 }
+
+//&& x.Price<priceMax
+//m.Where(x => x.Name.ToLower().Contains(name.ToLower()) && x.Description.ToLower().Contains(descr.ToLower()))
+//                    .Select(x=> x.Price >= priceMin && x.Price <= priceMax)
+//                    .ToArray();

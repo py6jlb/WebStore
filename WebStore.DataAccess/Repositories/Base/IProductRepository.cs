@@ -18,5 +18,6 @@ namespace WebStore.DataAccess.Repositories.Base
         Product GetProduct(int id);
         void SaveChanges();
         void RemoveProduct(Product product);
+        IEnumerable<Product> GetProductsByFilter(IEnumerable<int> categories, string name, string descr, double priceMax, double priceMin);
     }
 }
