@@ -36,7 +36,7 @@ namespace WebStore.UI.Controllers
             if (category.Id <= 0)
                 return Json("Redirect");
 
-            var model = _productService.GetProducts(category.Id);
+            var model = _productService.GetProductsByCategoryRecursive(category.Id);
 
             return PartialView("ProductList", model);
         }

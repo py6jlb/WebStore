@@ -78,5 +78,34 @@ namespace WebStore.BusinessLogic.Services
             _productRepository.SaveChanges();
 
         }
+
+        private IEnumerable<Category> GetRecursiveCategory(IEnumerable<Category> data)
+        {
+            var result = new List<Category>();
+
+            if (data != null)
+            {
+                foreach (var item in data)
+                {
+                    result.Add(item);
+                    result.AddRange(GetRecursiveCategory(item.ChildCategories));
+                }
+            }
+
+            return result;
+
+        }
+
+        public IEnumerable<ProductForIndexView> GetProductsByCategoryRecursive(int CategoryId)
+        {
+            List<Category> selectedCateory = new List<Category>();
+
+            var data = _categoryRepository.GetCategories().Where(x => x.Id == CategoryId).ToArray();
+            selectedCateory.AddRange(GetRecursiveCategory(data));
+            var selectedCateoryId = selectedCateory.Select(m => m.Id);
+
+            return _productRepository.GetProducts().Where(x => selectedCateoryId.Contains(x.CategoryId)).Select(_mapper.Map<ProductForIndexView>).ToArray();            
+
+        }
     }
 }
