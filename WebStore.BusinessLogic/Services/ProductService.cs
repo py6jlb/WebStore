@@ -102,14 +102,12 @@ namespace WebStore.BusinessLogic.Services
 
             var data = _categoryRepository.GetCategories().Where(x => x.Id == filter.CategoryId).ToArray();
             selectedCateory.AddRange(GetRecursiveCategory(data));
-            var selectedCateoryId = selectedCateory.Select(m => m.Id);
-            string name, descr;
-            double priceMin, priceMax;
 
-            name = filter.Name != null ? filter.Name : "";
-            descr = filter.Description != null ? filter.Description : "";
-            priceMin = filter.PriceMin;
-            priceMax = filter.PriceMax != 0 ? filter.PriceMin : double.MaxValue;
+            IEnumerable<int> selectedCateoryId = selectedCateory.Select(m => m.Id);
+            string name = filter.Name != null ? filter.Name : "";
+            string descr = filter.Description != null ? filter.Description : "";
+            double priceMin = filter.PriceMin != 0 ? filter.PriceMin : 0.0D;
+            double priceMax = filter.PriceMax != 0 ? filter.PriceMax : double.MaxValue;
 
             return _productRepository.GetProductsByFilter(selectedCateoryId, name, descr, priceMin, priceMax).Select(_mapper.Map<ProductForIndexView>).ToArray();         
 

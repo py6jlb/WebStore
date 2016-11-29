@@ -82,8 +82,8 @@ namespace WebStore.DataAccess.Repositories
             return from prod in m
                    where prod.Name.ToLower().Contains(name.ToLower())
                    && prod.Description.ToLower().Contains(descr.ToLower())
-                   //&& prod.Price >= priceMin
-                   //&& prod.Price <= priceMax
+                   && (prod.Price.CompareTo(priceMin)<=0)
+                   && (prod.Price.CompareTo(priceMax)>=0)  
                    select prod;
         }
     }
