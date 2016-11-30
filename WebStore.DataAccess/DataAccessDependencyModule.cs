@@ -29,6 +29,11 @@ namespace WebStore.DataAccess
                 .WithParameter((pi, c) => pi.Name == "context",
                    (pi, c) => (WebStoreDbContext)c.ResolveNamed<DbContext>("DataContext"))
                 .InstancePerRequest();
+
+            builder.RegisterType(typeof(AuthenticationRepository)).As(typeof(IAuthenticationRepository))
+                .WithParameter((pi, c) => pi.Name == "context",
+                   (pi, c) => (WebStoreDbContext)c.ResolveNamed<DbContext>("DataContext"))
+                .InstancePerRequest();
         }
     }
 }

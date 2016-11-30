@@ -2,14 +2,13 @@
 @{
     ViewBag.Title = "Index";
     var list = ((IEnumerable<SelectListItem>)ViewBag.Categories).ToList();
-    list.Add(new SelectListItem { Selected = true, Text = "", Value = "-1" });
-    var ajaxOpt = new AjaxOptions{HttpMethod = "post",  OnSuccess = "onAjax"};
+    var ajaxOpt = new AjaxOptions{ AllowCache = false, InsertionMode = InsertionMode.Replace, HttpMethod = "POST", OnSuccess = "onAjax"};
 }
 
 <div class="row">
     <div class="col-md-4">
         <h2>Поиск продуктов</h2>
-        @using (Ajax.BeginForm("UpdateList", "Main", ajaxOpt, new { @class = "form-horizontal" }))
+        @using (Ajax.BeginForm(actionName: "UpdateList", controllerName: "Product", ajaxOptions: ajaxOpt))
         {
             <div class="form-group">
                 @Html.DropDownListFor(x => x.CategoryId, list, new { @class = "form-control" })
@@ -48,7 +47,6 @@
                     <script type="text/javascript">
                         function onAjax(response) {
                             if (response == 'Redirect') {
-                                //window.location = response.url;
                                 $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
                             }
                             else {
@@ -60,5 +58,6 @@
             }
     </div>
     <div id="results" class="col-md-8" style="padding-top: 3%">
+        @Html.Action("UpdateListDefault", "Product")
     </div>
 </div>

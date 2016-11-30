@@ -75,9 +75,8 @@ namespace WebStore.DataAccess.Repositories
 
         public IEnumerable<Product> GetProductsByFilter(IEnumerable<int> categories, string name, string descr, double priceMax, double priceMin)
         {
-           //Как заставить выбрать с сервера все продукты у которых есть совпадения имени и описания, в одном запросе у меня не получилось
-           //И как лучше реализвать метод LIKE чтоб искать входение по строке?
-            var m = _context.Products.Include(p => p.Category).Where(x => categories.Contains(x.CategoryId)).ToArray();
+            //если возвращаеться IQuerable то тогда не работает фильтр с пустыми строками и датами((( как победить незнаю
+            var m = _context.Products.Include(p => p.Category).Where(p => categories.Contains(p.CategoryId)).ToArray();
 
             return from prod in m
                    where prod.Name.ToLower().Contains(name.ToLower())

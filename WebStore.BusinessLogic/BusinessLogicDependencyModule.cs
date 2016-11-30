@@ -17,6 +17,10 @@ namespace WebStore.BusinessLogic
             builder.RegisterType(typeof(ProductService))
                    .As(typeof(IProductService))
                    .InstancePerRequest();
+
+            builder.RegisterType(typeof(AuthenticationService))
+                   .As(typeof(IAuthenticationService))
+                   .InstancePerRequest();
         }
     }
 }

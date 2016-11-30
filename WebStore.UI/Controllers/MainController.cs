@@ -9,6 +9,7 @@ using WebStore.BusinessLogic.Services.Base;
 
 namespace WebStore.UI.Controllers
 {
+    [Authorize]
     public class MainController : Controller
     {
         #region init service
@@ -27,17 +28,6 @@ namespace WebStore.UI.Controllers
             ViewBag.Categories = _productService.GetCategories();
             
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult UpdateList(ProductFilterDTO filter)
-        {
-            if (filter.CategoryId <= 0)
-                return Json("Redirect");
-
-            var model = _productService.GetProductsRecursiveDyFilter(filter);
-
-            return PartialView("ProductList", model);
         }
 
         #endregion

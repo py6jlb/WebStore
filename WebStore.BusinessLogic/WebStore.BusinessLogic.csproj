@@ -89,6 +89,8 @@
     <Compile Include="Mapping\CategoryProfile.cs" />
     <Compile Include="Mapping\ProductProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthenticationService.cs" />
+    <Compile Include="Services\Base\IAuthenticationService.cs" />
     <Compile Include="Services\Base\IProductService.cs" />
     <Compile Include="Services\ProductService.cs" />
   </ItemGroup>

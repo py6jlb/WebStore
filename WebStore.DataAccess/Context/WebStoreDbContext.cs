@@ -16,7 +16,17 @@ namespace WebStore.DataAccess.Context
 
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new UserEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new GroupEntityTypeConfiguration());
+            modelBuilder.Configurations.Add(new RoleEntityTypeConfiguration());
+        }
+
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }
