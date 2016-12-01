@@ -23,7 +23,8 @@
                 <ul>
                     <li>
                         <ul class="nav navbar-nav">
-                            @* Здесь должнр быть отображение корзины с счетчиком товаров. *@
+                            <li><a href=#><span class="glyphicon glyphicon-shopping-cart"></span>Корзина:</a></li>
+                            @Html.Action("CurrentCart", "Cart")
                         </ul>
                         @Html.Action("UserLogin", "Login")
                     </li>
