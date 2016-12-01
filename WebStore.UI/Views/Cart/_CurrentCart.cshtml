@@ -1,10 +1,7 @@
 ﻿@model WebStore.UI.Models.Cart.CartViewModel
 
 @{
-    var total = Model == null ? 0 : Model.Items.Sum(x => x.Quantity);
+    var total = Model.Items == null ? 0 : Model.Items.Sum(x => x.Quantity);
 }
 
-<li><a href=#><span class="glyphicon glyphicon-log-out"></span>@total</a></li>
-@*<span style="color: white">
-    @total
-</span>*@
+<li><a href=@Url.Action("UserCart", "Cart")><span class="glyphicon glyphicon-shopping-cart"></span>&nbsp;@total</a></li>

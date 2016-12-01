@@ -15,8 +15,8 @@
                 <td>@e.CategoryName</td>
                 <td>@e.Price</td>
                 <td>
-                @Html.ActionLink("More", "ProductInfo", "Main", new { id = e.Id }, null)
-                <a href="@Url.Action("AddToCart", "Cart", new { id = e.Id })" class="btn btn-danger">Добавить в корзину</a>
+                <a href="@Url.Action("ProductInfo", "Main", new { id = e.Id })" class="btn btn-success">Подробнее</a>
+                <a href="@Url.Action("AddToCart", "Cart", new { id = e.Id })" class="btn btn-danger">В корзину</a>
                 </td>
             </tr>
         }
