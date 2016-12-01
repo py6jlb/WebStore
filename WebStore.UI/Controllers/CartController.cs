@@ -114,7 +114,7 @@ namespace WebStore.UI.Controllers
 
             //Response.Cookies.Add(cookie);
 
-            //return RedirectToAction("Index", "Main");
+            return RedirectToAction("Index", "Main");
         }
     }
 }
