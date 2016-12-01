@@ -19,12 +19,17 @@
                 </button>
                 @Html.ActionLink("Интернет Магазин", "Index", "Main", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
-                <div class="navbar-right">
-                    @Html.Action("UserLogin", "Login")
-                </div>
+            <div class="navbar-collapse collapse navbar-right">
+                <ul>
+                    <li>
+                        <ul class="nav navbar-nav">
+                            @* Здесь должнр быть отображение корзины с счетчиком товаров. *@
+                        </ul>
+                        @Html.Action("UserLogin", "Login")
+                    </li>
+                </ul>
+                    
             </div>
-            
         </div>
     </div>
 

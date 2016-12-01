@@ -30,14 +30,6 @@ namespace WebStore.UI.Controllers
         }
 
         [HttpGet]
-        public ActionResult IsUserLoggedIn()
-        {
-            var isLoggedIn = Thread.CurrentPrincipal.Identity?.Name;
-
-            return PartialView("_IsUserLoggedIn", isLoggedIn);
-        }
-
-        [HttpGet]
         public ActionResult Login()
         {
             return View();
