@@ -230,6 +230,7 @@
     <Compile Include="Infrastructure\IoC\WebDependencyModule.cs" />
     <Compile Include="Infrastructure\Mapping\WebMappingConfig.cs" />
     <Compile Include="Models\Cart\CartItem.cs" />
+    <Compile Include="Models\Cart\CartProductWithQuatntity.cs" />
     <Compile Include="Models\Cart\CartViewModel.cs" />
     <Compile Include="Models\Login\UserLoginViewModel.cs" />
     <Compile Include="Models\Login\UserViewModel.cs" />
@@ -254,6 +255,8 @@
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Cart\UserCart.cshtml" />
+    <Content Include="Views\Shared\_CartLayout.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

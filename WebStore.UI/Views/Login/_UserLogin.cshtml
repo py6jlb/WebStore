@@ -3,7 +3,7 @@
 @if (Model == null || Model.IsAuthenticaticated)
 {
     <ul class="nav navbar-nav">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> @Model.Login</a></li>
+        <li><p class="navbar-text"><span class="glyphicon glyphicon-user"></span>&nbsp; @Model.Login</p></li>
         <li><a href=@Url.Action("Logout", "Login")><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
 }

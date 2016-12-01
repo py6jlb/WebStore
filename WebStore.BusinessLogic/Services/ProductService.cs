@@ -32,6 +32,11 @@ namespace WebStore.BusinessLogic.Services
             return _productRepository.GetProducts().Select(_mapper.Map<ProductForIndexView>).ToArray();
         }
 
+        public IEnumerable<ProductForIndexView> GetProducts(IEnumerable<int> ids)
+        {
+            return _productRepository.GetProducts().Where(x=>ids.Contains(x.Id)).Select(_mapper.Map<ProductForIndexView>).ToArray();
+        }
+
         public IEnumerable<ProductForIndexView> GetProducts(int catId)
         {
             return _productRepository.GetProducts().Where(x => x.CategoryId == catId).Select(_mapper.Map<ProductForIndexView>).ToArray();

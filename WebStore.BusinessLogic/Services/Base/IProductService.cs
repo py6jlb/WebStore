@@ -18,5 +18,6 @@ namespace WebStore.BusinessLogic.Services.Base
         IEnumerable<SelectListItem> GetCategories();
         IEnumerable<ProductForIndexView> GetProducts(int catId);
         IEnumerable<ProductForIndexView> GetProductsRecursiveDyFilter(ProductFilterDTO filter);
+        IEnumerable<ProductForIndexView> GetProducts(IEnumerable<int> ids);
     }
 }
