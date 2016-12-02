@@ -29,11 +29,14 @@ else
                     <td>@e.product.Price</td>
                     <td>@e.Quantity</td>
                     <td>
-                        <a href= "#" @*"@Url.Action("ProductInfo", "Main", new { id = e.Id })"*@ class="btn btn-danger">Удалить</a>
+                        <a href= "@Url.Action("DelFromCart", "Cart", new { id = e.product.Id })" class="btn btn-danger">Удалить</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 }
+
+
+
 

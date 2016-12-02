@@ -85,8 +85,6 @@ namespace WebStore.UI.Controllers
         }
 
 
-
-
         public ActionResult UserCart()
         {
             var cookie = Request.Cookies.Get(cookieName);
@@ -118,6 +116,33 @@ namespace WebStore.UI.Controllers
             }
             
             return View(model);
+        }
+
+
+        public ActionResult DelFromCart(int id)
+        {
+            var cookie = Request.Cookies.Get(cookieName);
+            CartViewModel cart = null;
+            List<CartProductWithQuatntity> model = new List<CartProductWithQuatntity>();
+
+            var cartValue = cookie.Values.Get("cart");
+
+            cart = Newtonsoft.Json.JsonConvert.DeserializeObject<CartViewModel>(cartValue);
+
+            if (cart.Items.First(x => x.ProductId == id).Quantity > 1)
+            {
+                cart.Items.First(x => x.ProductId == id).Quantity--;
+            }
+            else
+            {
+                cart.Items.Remove(cart.Items.First(x => x.ProductId == id));
+            }
+
+            cookie.Values.Set("cart", Newtonsoft.Json.JsonConvert.SerializeObject(cart));
+
+            Response.Cookies.Set(cookie);
+
+            return RedirectToAction("UserCart");
         }
     }
 }

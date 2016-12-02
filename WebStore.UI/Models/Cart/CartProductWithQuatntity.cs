@@ -8,7 +8,7 @@ namespace WebStore.UI.Models.Cart
 {
     public class CartProductWithQuatntity
     {
-        public ProductForIndexView product {get; set;}
+        public ProductForIndexView product { get; set; }
         public int Quantity { get; set; }
     }
 }
