@@ -50,5 +50,13 @@ namespace WebStore.UI.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+
+            return Redirect(FormsAuthentication.DefaultUrl);
+        }
     }
 }

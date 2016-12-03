@@ -221,6 +221,7 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\NotiferController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -232,6 +233,7 @@
     <Compile Include="Models\Cart\CartItem.cs" />
     <Compile Include="Models\Cart\CartProductWithQuatntity.cs" />
     <Compile Include="Models\Cart\CartViewModel.cs" />
+    <Compile Include="Models\Notifier\Notifier.cs" />
     <Compile Include="Models\Login\UserLoginViewModel.cs" />
     <Compile Include="Models\Login\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +259,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Cart\UserCart.cshtml" />
     <Content Include="Views\Shared\_CartLayout.cshtml" />
+    <Content Include="Views\Notifer\_CartNotifier.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

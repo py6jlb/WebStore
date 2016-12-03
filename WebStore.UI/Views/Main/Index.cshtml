@@ -15,25 +15,25 @@
                 @Html.ValidationMessageFor(x => x.CategoryId)
             </div>
 
-                <div class="form-group">
-                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Имя" })
-                    @Html.ValidationMessageFor(x => x.Name)
-                </div>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", placeholder = "Имя" })
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
 
-                <div class="form-group">
-                    @Html.TextBoxFor(x => x.Description, new { @class = "form-control", placeholder = "Описание" })
-                    @Html.ValidationMessageFor(x => x.Description)
-                </div>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.Description, new { @class = "form-control", placeholder = "Описание" })
+                @Html.ValidationMessageFor(x => x.Description)
+            </div>
 
-                <div class="form-group">
-                    @Html.TextBoxFor(x => x.PriceMin, new { @class = "form-control", placeholder = "Цена от" })
-                    @Html.ValidationMessageFor(x => x.PriceMin)
-                </div>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.PriceMin, new { @class = "form-control", placeholder = "Цена от" })
+                @Html.ValidationMessageFor(x => x.PriceMin)
+            </div>
 
-                <div class="form-group">
-                    @Html.TextBoxFor(x => x.PriceMax, new { @class = "form-control", placeholder = "Цена до" })
-                    @Html.ValidationMessageFor(x => x.PriceMax)
-                </div>
+            <div class="form-group">
+                @Html.TextBoxFor(x => x.PriceMax, new { @class = "form-control", placeholder = "Цена до" })
+                @Html.ValidationMessageFor(x => x.PriceMax)
+            </div>
 
                 @*<div class="form-group">
                     @Html.LabelFor(x => x.IsDeleted)
@@ -41,23 +41,25 @@
                     @Html.ValidationMessageFor(x => x.IsDeleted)
                 </div>*@
 
-                <button type="submit" class="btn btn-primary">Применить</button>
+            <button type="submit" class="btn btn-primary">Применить</button>
 
-                @section Scripts {
-                    <script type="text/javascript">
-                        function onAjax(response) {
-                            if (response == 'Redirect') {
-                                $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
-                            }
-                            else {
-                                $('#results').empty().html(response)
-                            }
+            @section Scripts {
+                <script type="text/javascript">
+                    function onAjax(response) {
+                        if (response == 'Redirect') {
+                            $('#results').empty().html('<p class="text-danger">Необходимо выбрать категорию товара</p>');
                         }
-                    </script>
-                }
+                        else {
+                            $('#results').empty().html(response)
+                        }
+                    }
+                </script>
             }
-    </div>
+        }
+</div>
     <div id="results" class="col-md-8" style="padding-top: 3%">
         @Html.Action("UpdateListDefault", "Product")
+        @Html.RenderPartial()
     </div>
+    
 </div>
